@@ -1,0 +1,144 @@
+@import "fonts"
+@import "reset"
+\:root
+	--primary: #7F7CBE
+	--secondary: #B06DE4
+	--primary2: #746DE4
+	--secondary2: #8A87BE
+	--gradient1: linear-gradient(to right, var(--primary), var(--secondary))
+	--gradient2: linear-gradient(to right, var(--primary2), var(--secondary2))
+	--white: #fff
+	--grey: #767491
+	--black: #2F2E3E
+	font-size: 62.5%
+/* General Styles */
+*, *::before, *::after
+	-webkit-font-smoothing: antialiased!important
+
+html, body
+	background: var(--white)
+	color: var(--grey)
+	font-family: "Rubik", "Helvetica", sans-serif
+	padding: 0
+	margin: 0
+	font-size: 2rem
+a
+	color: var(--primary)
+	font-style: italic
+p
+	line-height: 1.6
+	margin-bottom: 2rem
+.wrapper
+	max-width: 48rem
+	align-self: center
+.logo
+	width: 25rem
+	height: 10rem
+	margin-bottom: 1rem
+	display: flex
+	margin: auto
+.btn
+	padding: 1.4rem 3.2rem
+	background: var(--gradient1)
+	border: 0
+	border-radius: 20rem
+	color: var(--white)
+	font-size: 1.6rem
+	box-shadow: 1.3rem .5rem 2rem rgba(0,0,0,.15)
+	margin: 2% 4% 2% 0
+	outline: 0
+	transition: all .5s cubic-bezier(.61,.03,.37,1.05)
+	&:hover
+		box-shadow: 1.3rem .5rem 3rem rgba(0,0,0,.4)
+		filter: hue-rotate(30deg)
+	&--sec
+		background: var(--gradient2)
+h1
+	font-size: 8.8rem
+	text-align: center
+.smaller
+	font-size: 1.6rem
+	font-weight: 300
+	margin: 2rem 0
+section
+	height: 100vh
+	display: flex
+	justify-content: center
+	align-items: center
+.buttons
+	display: flex
+	flex-direction: row
+	justify-content: center
+	align-items: center
+
+/* Hero Classes */
+.hero
+	background: url('../images/hero-img.svg')
+	background-repeat: no-repeat
+	background-size: 90%
+	background-position: 400%
+	height: 100vh
+	display: flex
+	justify-content: left
+	padding-left: 10vw
+	.logo
+		margin: 0 0 2rem 0
+	.buttons
+		margin-bottom: 2rem
+
+/* Sleep Now Classes */
+.sleep-now
+	background: url('../images/night-bg.svg')
+	background-repeat: no-repeat
+	background-size: 130rem
+	background-position: center
+	color: var(--white)
+	position: relative
+	&__times
+		display: grid
+		grid-template-columns: repeat(3, 1fr)
+		grid-template-rows: repeat(2, 1fr)
+		grid-gap: 2.5rem
+		margin: 0
+		text-align: center
+		font-weight: 700
+
+/* Sleep At Classes*/
+.sleep-at
+	background: url('../images/space-bg.svg')
+	background-repeat: no-repeat
+	background-size: 150rem
+	background-position: 100% 40%
+	color: var(--black)
+	h1
+		width: 200%
+		margin-left: -50%
+		margin-bottom: 2rem
+	#time
+		background: none
+		border: 0
+		border-bottom: 1px solid var(--black)
+		font-size: 8.8rem
+		font-family: "Rubik", sans-serif
+		color: var(--black)
+		font-style: italic
+		outline: 0
+		padding: 0
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button,
+		&::-webkit-clear-button
+			-webkit-appearance: none!important
+			display: none
+			margin: 0
+			padding: 0
+
+/* Learn More Styles */
+.learn-more
+	background: url('../images/learnmore-bg.svg')
+	background-repeat: no-repeat
+	background-size: 200rem
+	background-position: center 41%
+	p
+		margin: 2rem 0
+	.wrapper
+		max-width: 70rem
