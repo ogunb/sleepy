@@ -1,5 +1,4 @@
 const timeEl = document.querySelector('[data-time]'); //the time elements, depending on the page, values will be different.
-const showTimes = document.querySelectorAll('.sleep-now__time');
 const calledTime = timeEl.dataset.time;
 
 function time() {
@@ -28,9 +27,9 @@ function time() {
 		calcTime(wakeUpSecs);
 	} else {
 		// call this on sleep-now page
-		const output = `${
-			now.getHours() < 10 ? '0' : ''
-		}${now.getHours()}:${now.getMinutes()}`;
+		const output = `${now.getHours() < 10 ? '0' : ''}${now.getHours()}:${
+			now.getMinutes() < 10 ? '0' : ''
+		}${now.getMinutes()}`;
 		timeEl.innerHTML = output;
 		calcTime(now.getTime());
 	}
@@ -59,12 +58,18 @@ function calcTime(seconds) {
 	}
 	// convert the last firstHour to hour and secs.
 	times[5] = [new Date(times[5]).getHours(), new Date(times[5]).getMinutes()];
-
+	// if the times are decreasing, they will be on wrong order for display, we'll fix it.
 	calledTime === 'wake' ? times.reverse() : times;
 
 	displayTime(times);
 }
 
 function displayTime(time) {
-	console.log(time);
+	const showTimes = document.querySelector('.sleep-now__times');
+	time.forEach(
+		i =>
+			(showTimes.innerHTML += `<li>${i[0] < 10 ? '0' : ''}${i[0]}:${
+				i[1] < 10 ? '0' : ''
+			}${i[1]}</li>`)
+	);
 }
