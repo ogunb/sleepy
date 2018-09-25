@@ -1,5 +1,6 @@
 @import "fonts"
 @import "reset"
+@import "keyframes"
 \:root
 	--primary: #7F7CBE
 	--secondary: #B06DE4
@@ -16,12 +17,12 @@
 	-webkit-font-smoothing: antialiased!important
 
 html, body
-	background: var(--white)
 	color: var(--grey)
 	font-family: "Rubik", "Helvetica", sans-serif
 	padding: 0
 	margin: 0
 	font-size: 2rem
+	position: relative
 a
 	color: var(--primary)
 	font-style: italic
@@ -75,6 +76,36 @@ h1
 	font-size: 1.6rem
 	font-weight: 300
 	margin: 2rem 0
+.route
+	position: absolute
+	width: 100vw
+	height: 100vh
+	top: 0
+	left: 0
+	display: none
+	.inner-html
+		position: relative
+		z-index: 2
+		opacity: 0
+		visibility: hidden
+		// animation: animate-content 1s ease-out forwards 1 1.5s
+	&__bg
+		width: 0%
+		height: 100%
+		background-color: var(--grey)
+		position: absolute
+		top: 0
+		left: 0
+		// animation: animate-bg 1s ease-out forwards 1
+	.animate-bg
+		// animation: animate-bg 1s ease-out forwards 1 1s
+		width: 0%
+		height: 100%
+		background-color: var(--white)
+		position: absolute
+		top: 0
+		left: 0
+
 
 /* Hero Classes */
 .hero
@@ -93,10 +124,6 @@ h1
 
 /* Sleep Now Classes */
 .sleep-now
-	background: url('../images/night-bg.svg')
-	background-repeat: no-repeat
-	background-size: 130rem
-	background-position: center
 	color: var(--white)
 	position: relative
 	&__times
@@ -107,14 +134,20 @@ h1
 		margin: 0
 		text-align: center
 		font-weight: 700
+	&__bg
+		background: url('../images/night-bg.svg')
+		background-repeat: no-repeat
+		background-size: 130rem
+		background-position: center
 
 /* Sleep At Classes*/
 .sleep-at
-	background: url('../images/space-bg.svg')
-	background-repeat: no-repeat
-	background-size: 150rem
-	background-position: 100% 40%
 	color: var(--black)
+	&__bg
+		background: url('../images/space-bg.svg')
+		background-repeat: no-repeat
+		background-size: 150rem
+		background-position: 100% 40%
 	h1
 		width: 200%
 		margin-left: -50%
@@ -139,10 +172,11 @@ h1
 
 /* Learn More Styles */
 .learn-more
-	background: url('../images/learnmore-bg.svg')
-	background-repeat: no-repeat
-	background-size: 200rem
-	background-position: center 41%
+	&__bg
+		background: url('../images/learnmore-bg.svg')
+		background-repeat: no-repeat
+		background-size: 200rem
+		background-position: center 41%
 	p
 		margin: 2rem 0
 	.wrapper

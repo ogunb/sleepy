@@ -64,12 +64,14 @@ function calcTime(seconds) {
 	displayTime(times);
 }
 
-function displayTime(time) {
+function displayTime(times) {
+	// Take the time grid.
 	const showTimes = document.querySelector('.sleep-now__times');
-	time.forEach(
-		i =>
-			(showTimes.innerHTML += `<li>${i[0] < 10 ? '0' : ''}${i[0]}:${
-				i[1] < 10 ? '0' : ''
-			}${i[1]}</li>`)
+	// Map over the times array and spit out hours and minutes into the time grid.
+	times.map(
+		time =>
+			(showTimes.innerHTML += `<li>${time[0] < 10 ? '0' : ''}${time[0]}:${
+				time[1] < 10 ? '0' : ''
+			}${time[1]}</li>`)
 	);
 }
