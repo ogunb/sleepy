@@ -1,7 +1,11 @@
-const timeEl = document.querySelector('[data-time]'); //the time elements, depending on the page, values will be different.
-const calledTime = timeEl.dataset.time;
+let timeEl;
+let calledTime;
+let showTimes;
 
 function time() {
+	timeEl = document.querySelector('[data-time]');
+	calledTime = timeEl.dataset.time;
+	const submitForm = document.querySelector('form');
 	//  will call this function when you click recalculate, refresh the page or change the input value.
 	const now = new Date();
 
@@ -17,14 +21,20 @@ function time() {
 			// And if that day is bigger than the last day of month, set the day to 1 and go to next month.
 			const lastday = new Date(now.getYear(), now.getMonth() + 1, 0).getDay();
 			wakeUpAt.setDate(now.getDate() + 1);
-
 			if (wakeUpAt.getDay() > lastday) {
 				wakeUpAt.setDate(1);
 				wakeUpAt.setMonth(now.getMonth() + 1);
 			}
 		}
+		//convert the wake date to miliseconds and psuh that variable down to calculation function.
 		const wakeUpSecs = wakeUpAt.getTime();
 		calcTime(wakeUpSecs);
+		// if a new input is submitted.
+		submitForm.addEventListener('submit', e => {
+			e.preventDefault();
+			showTimes.innerHTML = '';
+			time();
+		});
 	} else {
 		// call this on sleep-now page
 		const output = `${now.getHours() < 10 ? '0' : ''}${now.getHours()}:${
@@ -65,8 +75,7 @@ function calcTime(seconds) {
 }
 
 function displayTime(times) {
-	// Take the time grid.
-	const showTimes = document.querySelector('.sleep-now__times');
+	showTimes = document.querySelector('.sleep-now__times');
 	// Map over the times array and spit out hours and minutes into the time grid.
 	times.map(
 		time =>
@@ -75,3 +84,50 @@ function displayTime(times) {
 			}${time[1]}</li>`)
 	);
 }
+function getPage(page) {
+	// the function to fetch the route html.
+	const route = document.querySelector('.route');
+	const routeHtml = document.querySelector('.inner-html');
+	const routeBg = document.querySelector('.route__bg');
+
+	fetch(page)
+		.then(res => res.text())
+		.then(data => {
+			routeHtml.innerHTML = data;
+		})
+		.then(() => {
+			// animate new content in.
+			route.classList.add('active');
+			page == 'sleep-now.html'
+				? routeBg.classList.add('sleep-now__bg')
+				: routeBg.classList.add('sleep-at__bg');
+		})
+		.then(() => time()) // make the calculations and put them in the html.)
+		.then(() => {
+			// add new buttons into a node-list
+			const newButtons = document.querySelectorAll(
+				'[data-recalculate], [data-fetch]'
+			);
+
+			newButtons.forEach(button =>
+				button.addEventListener('click', () => {
+					showTimes.innerHTML = ''; // clear the calculated times grid.
+					// check if it's a recalculation.
+					if (button.hasAttribute('data-recalculate')) {
+						time(); // if it is, then run the time function again.
+					} else {
+						// if not, change the background image and run the getPage function again for the new content.
+						page == 'sleep-now.html'
+							? routeBg.classList.remove('sleep-now__bg')
+							: routeBg.classList.remove('sleep-at__bg');
+						getPage(button.dataset.fetch);
+					}
+				})
+			);
+		});
+}
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button =>
+	button.addEventListener('click', () => getPage(button.dataset.fetch))
+);

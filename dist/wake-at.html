@@ -1,36 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+<section class="sleep-at">
+  <div class="wrapper">
+    <img src="assets/images/logo.svg" alt="sleepy" class="logo">
+    <div class="sleep-at__content">
+      <h1>be awake at<form><input type="time" name="time" id="time" value="08:00" data-time="wake"><input type="submit"
+            style="visibility: hidden" />
+      </h1>
+      <p>it takes the average human about 15 minutes to fall asleep. to wake up refreshed at 08:00, you should be
+        asleep at one of the following times:</p>
+      <ul class="sleep-now__times">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>sleepy💤</title>
-  <link rel="stylesheet" href="assets/styles/main.css">
-</head>
-
-<body>
-  <section class="sleep-at">
-    <div class="wrapper">
-      <img src="assets/images/logo.svg" alt="sleepy" class="logo">
-      <div class="sleep-at__content">
-        <h1>be awake at <input type="time" name="time" id="time" value="08:00" data-time="wake"></h1>
-        <p>it takes the average human about 15 minutes to fall asleep. to wake up refreshed at 08:00, you should be
-          asleep at one of the following times:</p>
-        <ul class="sleep-now__times">
-
-        </ul>
-        <p class="smaller">if you wake up at one of these times, you'll rise in between 90-minute sleep cycles. a good
-          night's sleep
-          consists of 5-6 complete sleep cycles.</p>
-        <div class="buttons">
-          <button type="button" class="btn btn--pri">going to sleep now.</button>
-          <button type="button" class="btn btn--sec">recalculate</button>
-        </div>
+      </ul>
+      <p class="smaller">if you wake up at one of these times, you'll rise in between 90-minute sleep cycles. a good
+        night's sleep
+        consists of 5-6 complete sleep cycles.</p>
+      <div class="buttons">
+        <button type="button" class="btn btn--pri" data-fetch="sleep-now.html">going to sleep
+          now.</button>
+        <button type="submit" class="btn btn--sec" data-recalculate>recalculate</button></form>
       </div>
     </div>
-  </section>
-  <script src="assets/app/app.js"></script>
-</body>
-
-</html>
+  </div>
+</section>

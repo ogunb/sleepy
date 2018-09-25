@@ -1,37 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+<section class="sleep-now">
+  <div class="wrapper">
+    <img src="assets/images/logo.svg" alt="sleepy" class="logo">
+    <div class="sleep-now__content">
+      <h1>it's <span class="current-time" data-time="sleep"></span></h1>
+      <p>it takes the average human about 15 minutes to fall asleep. if you go to sleep right now, you should try to
+        wake up at one of the following times:</p>
+      <ul class="sleep-now__times">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>sleepy💤</title>
-  <link rel="stylesheet" href="assets/styles/main.css">
-</head>
-
-<body>
-  <section class="sleep-now">
-    <div class="wrapper">
-      <img src="assets/images/logo.svg" alt="sleepy" class="logo">
-      <div class="sleep-now__content">
-        <h1>it's <span class="current-time" data-time="sleep"></span></h1>
-        <p>it takes the average human about 15 minutes to fall asleep. if you go to sleep right now, you should try to
-          wake up at one of the following times:</p>
-        <ul class="sleep-now__times">
-
-        </ul>
-        <p class="smaller">if you wake up at one of these times, you'll rise in between 90-minute sleep cycles. a good
-          night's sleep
-          consists of 5-6 complete sleep cycles.</p>
-        <div class="buttons">
-          <button type="button" class="btn btn--pri">recalculate</button>
-          <button type="button" class="btn btn--sec">i should wake up at...</button>
-        </div>
+      </ul>
+      <p class="smaller">if you wake up at one of these times, you'll rise in between 90-minute sleep cycles. a good
+        night's sleep
+        consists of 5-6 complete sleep cycles.</p>
+      <div class="buttons">
+        <button type="button" class="btn btn--pri" data-recalculate>recalculate</button>
+        <button type="button" class="btn btn--sec" data-fetch="wake-at.html">i should wake up
+          at...</button>
       </div>
     </div>
-  </section>
-  <script src="assets/app/app.js"></script>
-  <script>time()</script>
-</body>
-
-</html>
+  </div>
+</section>
