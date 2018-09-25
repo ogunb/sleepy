@@ -1,9 +1,8 @@
 <section class="sleep-at">
   <div class="wrapper">
-    <img src="assets/images/logo.svg" alt="sleepy" class="logo">
+    <img src="assets/images/logo.svg" alt="sleepy" class="logo" onclick="cleanState()">
     <div class="sleep-at__content">
-      <h1>be awake at<form><input type="time" name="time" id="time" value="08:00" data-time="wake"><input type="submit"
-            style="visibility: hidden" />
+      <h1>I'll wake up at <input type="time" name="time" id="time" value="08:00" data-time="wake">
       </h1>
       <p>it takes the average human about 15 minutes to fall asleep. to wake up refreshed at 08:00, you should be
         asleep at one of the following times:</p>
@@ -14,9 +13,9 @@
         night's sleep
         consists of 5-6 complete sleep cycles.</p>
       <div class="buttons">
-        <button type="button" class="btn btn--pri" data-fetch="sleep-now.html">going to sleep
+        <button type="submit" class="btn btn--pri" data-recalculate>recalculate</button>
+        <button type="button" class="btn btn--sec" data-fetch="sleep-now.html">going to sleep
           now.</button>
-        <button type="submit" class="btn btn--sec" data-recalculate>recalculate</button></form>
       </div>
     </div>
   </div>

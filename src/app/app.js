@@ -1,11 +1,24 @@
 let timeEl;
 let calledTime;
 let showTimes;
+// debounce function to prevent crashing events.
+function debounce(a, b, c) {
+	var d;
+	return function() {
+		var e = this,
+			f = arguments;
+		clearTimeout(d),
+			(d = setTimeout(function() {
+				(d = null), c || a.apply(e, f);
+			}, b)),
+			c && !d && a.apply(e, f);
+	};
+}
 
 function time() {
 	timeEl = document.querySelector('[data-time]');
 	calledTime = timeEl.dataset.time;
-	const submitForm = document.querySelector('form');
+	const submitInput = document.querySelector('#time');
 	//  will call this function when you click recalculate, refresh the page or change the input value.
 	const now = new Date();
 
@@ -29,12 +42,14 @@ function time() {
 		//convert the wake date to miliseconds and psuh that variable down to calculation function.
 		const wakeUpSecs = wakeUpAt.getTime();
 		calcTime(wakeUpSecs);
-		// if a new input is submitted.
-		submitForm.addEventListener('submit', e => {
+		// if there is a new input, clear the times grid and run the time function again.
+		// also debounce it, so it won't crash the browser if there is too many calls.
+		submitInput.addEventListener('change', debounce(newInput, 20, true));
+		function newInput(e) {
 			e.preventDefault();
 			showTimes.innerHTML = '';
 			time();
-		});
+		}
 	} else {
 		// call this on sleep-now page
 		const output = `${now.getHours() < 10 ? '0' : ''}${now.getHours()}:${
@@ -87,8 +102,8 @@ function displayTime(times) {
 function getPage(page) {
 	// the function to fetch the route html.
 	const route = document.querySelector('.route');
-	const routeHtml = document.querySelector('.inner-html');
-	const routeBg = document.querySelector('.route__bg');
+	const routeHtml = route.querySelector('.inner-html');
+	const routeBg = route.querySelector('.route__bg');
 
 	fetch(page)
 		.then(res => res.text())
@@ -105,7 +120,7 @@ function getPage(page) {
 		.then(() => time()) // make the calculations and put them in the html.)
 		.then(() => {
 			// add new buttons into a node-list
-			const newButtons = document.querySelectorAll(
+			const newButtons = route.querySelectorAll(
 				'[data-recalculate], [data-fetch]'
 			);
 
@@ -131,3 +146,14 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach(button =>
 	button.addEventListener('click', () => getPage(button.dataset.fetch))
 );
+
+function cleanState() {
+	const route = document.querySelector('.route');
+	const routeHtml = route.querySelector('.inner-html');
+	const routeBg = route.querySelector('.route__bg');
+
+	route.classList.remove('active');
+	routeBg.classList.remove('sleep-now__bg');
+	routeBg.classList.remove('sleep-at__bg');
+	routeHtml.innerHTML = '';
+}

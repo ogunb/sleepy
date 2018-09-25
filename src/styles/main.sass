@@ -32,7 +32,6 @@ p
 	line-height: 1.6
 	margin-bottom: 2rem
 section
-	height: 100vh
 	display: flex
 	justify-content: center
 	align-items: center
@@ -42,6 +41,8 @@ h1
 .wrapper
 	max-width: 48rem
 	align-self: center
+	@media screen and (max-width: 500px)
+		padding: 5%
 .logo
 	width: 25rem
 	height: 10rem
@@ -49,10 +50,14 @@ h1
 	display: flex
 	margin: auto
 .buttons
-	display: flex
-	flex-direction: row
-	justify-content: center
-	align-items: center
+	display: grid
+	grid-gap: 4%
+	grid-template-columns: repeat(2, auto)
+	margin: 2%
+	@media screen and (max-width: 500px)
+		grid-gap: 1.5rem
+		grid-template-columns: 100%
+		grid-template-rows: repeat(2, auto)
 .btn
 	padding: 1.4rem 3.2rem
 	background: var(--gradient1)
@@ -61,7 +66,6 @@ h1
 	color: var(--white)
 	font-size: 1.6rem
 	box-shadow: 1.3rem .5rem 2rem rgba(0,0,0,.15)
-	margin: 2% 4% 2% 0
 	outline: 0
 	transition: all .5s cubic-bezier(.61,.03,.37,1.05)
 	cursor: pointer
@@ -76,19 +80,26 @@ h1
 	font-size: 1.6rem
 	font-weight: 300
 	margin: 2rem 0
+@media screen and (max-width: 420px)
+	.hide-on-s
+		display: none
+/* Router Classes */
 .route
 	position: absolute
 	width: 100vw
-	height: 100vh
+	height: 100%
 	top: 0
 	left: 0
 	display: none
+	overflow-x: hidden
+	@media screen and (max-width: 1000px)
+		height: auto
 	.inner-html
 		position: relative
 		z-index: 2
 		opacity: 0
 		visibility: hidden
-		transition : all 1s ease-in-out
+		transition : all 5s ease-in-out
 	.animate-bg
 		width: 0%
 		height: 100%
@@ -96,16 +107,15 @@ h1
 		position: absolute
 		top: 0
 		left: 0
-		transition : all 1s ease-in-out
+		transition : all 5s ease-in-out
 		opacity: 0
 	&__bg
 		width: 0%
-		height: 100%
+		height: 115%
 		background-color: var(--white)
 		position: absolute
 		top: 0
 		left: 0
-		transition : all 750ms ease-in-out
 	&.active
 		display: block
 		.animate-bg
@@ -115,29 +125,29 @@ h1
 			animation: animate-bg 1s ease-out forwards 1 750ms
 		.inner-html
 			animation: animate-content 1s ease-out forwards 1 2s
-	&.remove
-		display: none
-		.animate-bg
-			animation: animate-bg 750ms ease-out reverse backwards 1!important
-		.route__bg
-			background-color: var(--white)
-			animation: animate-bg 1s ease-out reverse backwards 1 750ms!important
-		.inner-html
-			animation: animate-content 1s ease-out reverse backwards 1 2s!important
-
 
 /* Hero Classes */
 .hero
 	background: url('../images/hero-img.svg')
 	background-repeat: no-repeat
 	background-size: 90%
-	background-position: 400%
-	height: 100vh
+	background-position: 35vw
+	height: 99vh
 	display: flex
 	justify-content: left
 	padding-left: 10vw
+	@media screen and (max-width: 900px)
+		background-position: 35vw bottom
+	@media screen and (max-width: 700px)
+		background: var(--white)
+		justify-content: center
+		text-align: center
+		padding: 5%
 	.logo
 		margin: 0 0 2rem 0
+		@media screen and (max-width: 700px)
+			margin: 0 auto 2rem auto
+
 	.buttons
 		margin-bottom: 2rem
 
@@ -158,23 +168,33 @@ h1
 		background-repeat: no-repeat
 		background-size: 130rem
 		background-position: center
+		@media screen and (max-width: 900px)
+			background-size: 120rem
+		@media screen and (max-width: 500px)
+			background-size: 140rem
+			background-position: center 60%
 
 /* Sleep At Classes*/
 .sleep-at
 	color: var(--black)
 	form
 		display: inline-block
-		margin-left: 1.5rem
+		[type="submit"]
+			width: 0
+			height: 0
 	&__bg
 		background: url('../images/space-bg.svg')
 		background-repeat: no-repeat
 		background-size: 150rem
 		background-position: 100% 40%
+		@media screen and (max-width: 750px)
+			background-position: center 30%
+
 	h1
-		width: 200%
-		margin-left: -50%
+		text-align: center
 		margin-bottom: 2rem
 	#time
+		max-width: 280px
 		background: none
 		border: 0
 		border-bottom: 1px solid var(--black)
