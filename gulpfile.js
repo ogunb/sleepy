@@ -1,14 +1,12 @@
 var gulp = require('gulp'),
 	sass = require('gulp-sass'),
-	sourcemaps = require('gulp-sourcemaps'),
+	// sourcemaps = require('gulp-sourcemaps'),
 	autoprefix = require('gulp-autoprefixer'),
 	browserSync = require('browser-sync').create(),
 	cleanCss = require('gulp-clean-css'),
 	concat = require('gulp-concat'),
 	plumber = require('gulp-plumber');
-(uglify = require('gulp-uglify')),
-	(babel = require('gulp-babel')),
-	(imgmin = require('gulp-imagemin'));
+(babel = require('gulp-babel')), (imgmin = require('gulp-imagemin'));
 
 var paths = {
 	styleSrc: 'src/styles/**/*.sass',
@@ -33,15 +31,17 @@ gulp.task('image-minify', function() {
 });
 
 gulp.task('sass', function() {
-	return gulp
-		.src(paths.styleSrc)
-		.pipe(plumber())
-		.pipe(sourcemaps.init())
-		.pipe(sass())
-		.pipe(autoprefix())
-		.pipe(cleanCss({ compatibility: 'ie8' }))
-		.pipe(sourcemaps.write())
-		.pipe(gulp.dest(paths.styleDest));
+	return (
+		gulp
+			.src(paths.styleSrc)
+			.pipe(plumber())
+			// .pipe(sourcemaps.init())
+			.pipe(sass())
+			.pipe(autoprefix())
+			.pipe(cleanCss({ compatibility: 'ie8' }))
+			// .pipe(sourcemaps.write())
+			.pipe(gulp.dest(paths.styleDest))
+	);
 });
 
 gulp.task('javascript', function() {
@@ -50,12 +50,13 @@ gulp.task('javascript', function() {
 			.src(paths.jsSrc)
 			.pipe(plumber())
 			.pipe(concat('app.js'))
-			.pipe(sourcemaps.init())
-			// .pipe(babel({
-			//     presets: ['env']
-			/*}))*/
-			// .pipe(uglify())
-			.pipe(sourcemaps.write())
+			// .pipe(sourcemaps.init())
+			.pipe(
+				babel({
+					presets: [['@babel/preset-env'], ['minify']]
+				})
+			)
+			// .pipe(sourcemaps.write())
 			.pipe(gulp.dest(paths.jsDest))
 	);
 });
