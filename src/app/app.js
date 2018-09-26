@@ -134,6 +134,7 @@ function getPage(page) {
 					if (button.hasAttribute('data-recalculate')) {
 						time(); // if it is, then run the time function again.
 					} else {
+						//otherwise run the function to clear route.
 						cleanState(button);
 					}
 				})
@@ -151,11 +152,13 @@ function cleanState(button) {
 	const routeHtml = route.querySelector('.inner-html');
 	const routeBg = route.querySelector('.route__bg');
 
-	route.classList.add('reverse');
-	routeHtml.innerHTML = '';
+	route.classList.add('reverse'); // play the reverse animation for outro.
 
-	routeBg.addEventListener('animationend', animateOut);
+	routeBg.addEventListener('animationend', animateOut); // when the animation ends...
+
 	function animateOut() {
+		//...clean out the content.
+		routeHtml.innerHTML = '';
 		routeBg.classList.remove('sleep-now__bg');
 		routeBg.classList.remove('sleep-at__bg');
 		route.classList.remove('active');
@@ -163,9 +166,10 @@ function cleanState(button) {
 		route.style.display = 'none';
 		routeBg.removeEventListener('animationend', animateOut, false);
 		if (button === undefined) {
+			// if the click was on the logo, go back to landing.
 			hero.style.opacity = '1';
 			return;
 		}
-		getPage(button.dataset.fetch);
+		getPage(button.dataset.fetch); // if it was one of the content buttons, run the getPage function again.
 	}
 }
