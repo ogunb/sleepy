@@ -44,9 +44,8 @@ function time() {
 		calcTime(wakeUpSecs);
 		// if there is a new input, clear the times grid and run the time function again.
 		// also debounce it, so it won't crash the browser if there is too many calls.
-		submitInput.addEventListener('change', debounce(newInput, 20, true));
-		function newInput(e) {
-			e.preventDefault();
+		submitInput.addEventListener('change', debounce(newInput, 20));
+		function newInput() {
 			showTimes.innerHTML = '';
 			time();
 		}
@@ -99,6 +98,7 @@ function displayTime(times) {
 			}${time[1]}</li>`)
 	);
 }
+const hero = document.querySelector('.hero');
 function getPage(page) {
 	// the function to fetch the route html.
 	const route = document.querySelector('.route');
@@ -112,6 +112,8 @@ function getPage(page) {
 		})
 		.then(() => {
 			// animate new content in.
+			if (route.classList.remove('reverse')) route.classList.remove('reverse');
+			route.style.display = 'block';
 			route.classList.add('active');
 			page == 'sleep-now.html'
 				? routeBg.classList.add('sleep-now__bg')
@@ -119,6 +121,7 @@ function getPage(page) {
 		})
 		.then(() => time()) // make the calculations and put them in the html.)
 		.then(() => {
+			hero.style.opacity = '0';
 			// add new buttons into a node-list
 			const newButtons = route.querySelectorAll(
 				'[data-recalculate], [data-fetch]'
@@ -131,11 +134,7 @@ function getPage(page) {
 					if (button.hasAttribute('data-recalculate')) {
 						time(); // if it is, then run the time function again.
 					} else {
-						// if not, change the background image and run the getPage function again for the new content.
-						page == 'sleep-now.html'
-							? routeBg.classList.remove('sleep-now__bg')
-							: routeBg.classList.remove('sleep-at__bg');
-						getPage(button.dataset.fetch);
+						cleanState(button);
 					}
 				})
 			);
@@ -147,13 +146,26 @@ buttons.forEach(button =>
 	button.addEventListener('click', () => getPage(button.dataset.fetch))
 );
 
-function cleanState() {
+function cleanState(button) {
 	const route = document.querySelector('.route');
 	const routeHtml = route.querySelector('.inner-html');
 	const routeBg = route.querySelector('.route__bg');
 
-	route.classList.remove('active');
-	routeBg.classList.remove('sleep-now__bg');
-	routeBg.classList.remove('sleep-at__bg');
+	route.classList.add('reverse');
 	routeHtml.innerHTML = '';
+
+	routeBg.addEventListener('animationend', animateOut);
+	function animateOut() {
+		routeBg.classList.remove('sleep-now__bg');
+		routeBg.classList.remove('sleep-at__bg');
+		route.classList.remove('active');
+		route.classList.remove('reverse');
+		route.style.display = 'none';
+		routeBg.removeEventListener('animationend', animateOut, false);
+		if (button === undefined) {
+			hero.style.opacity = '1';
+			return;
+		}
+		getPage(button.dataset.fetch);
+	}
 }

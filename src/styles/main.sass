@@ -1,6 +1,6 @@
 @import "fonts"
 @import "reset"
-@import "keyframes"
+@import "anims"
 \:root
 	--primary: #7F7CBE
 	--secondary: #B06DE4
@@ -49,6 +49,7 @@ h1
 	margin-bottom: 1rem
 	display: flex
 	margin: auto
+	cursor: pointer
 .buttons
 	display: grid
 	grid-gap: 4%
@@ -86,8 +87,9 @@ h1
 /* Router Classes */
 .route
 	position: absolute
-	width: 100vw
-	height: 100%
+	width: 100%
+	height: auto
+	min-height: 100vh
 	top: 0
 	left: 0
 	display: none
@@ -111,20 +113,27 @@ h1
 		opacity: 0
 	&__bg
 		width: 0%
-		height: 115%
+		height: 100%
 		background-color: var(--white)
 		position: absolute
 		top: 0
 		left: 0
 	&.active
-		display: block
 		.animate-bg
-			animation: animate-bg 750ms ease-out forwards 1
+			animation: animate-bg 750ms cubic-bezier(.6,.05,0,.99) forwards 1
 		.route__bg
 			background-color: var(--white)
-			animation: animate-bg 1s ease-out forwards 1 750ms
+			animation: animate-bg 1s cubic-bezier(.6,.05,0,.99) forwards 1 750ms
 		.inner-html
-			animation: animate-content 1s ease-out forwards 1 2s
+			animation: animate-content 1s cubic-bezier(.6,.05,0,.99) forwards 1 2s
+	&.reverse
+		.animate-bg
+			animation: animate-bg-back .1s cubic-bezier(.6,.05,0,.99) forwards 1!important
+		.route__bg
+			background-color: var(--white)
+			animation: animate-bg-back 1s cubic-bezier(.6,.05,0,.99) forwards 1!important
+		.inner-html
+			animation: animate-bg-back .75s cubic-bezier(.6,.05,0,.99) forwards 1!important
 
 /* Hero Classes */
 .hero
@@ -136,6 +145,7 @@ h1
 	display: flex
 	justify-content: left
 	padding-left: 10vw
+	transition: all 500ms cubic-bezier(.6,.05,0,.99)
 	@media screen and (max-width: 900px)
 		background-position: 35vw bottom
 	@media screen and (max-width: 700px)
@@ -189,7 +199,6 @@ h1
 		background-position: 100% 40%
 		@media screen and (max-width: 750px)
 			background-position: center 30%
-
 	h1
 		text-align: center
 		margin-bottom: 2rem
