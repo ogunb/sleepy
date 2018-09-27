@@ -1,6 +1,7 @@
 # sleepy💤
 
 sleepy is a sleep-cycle calculator.
+[Live Demo](https://ogunb.github.io/sleepy/dist/)
 
 ### What is a sleep cycle?
 
